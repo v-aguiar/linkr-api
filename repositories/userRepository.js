@@ -6,13 +6,13 @@ async function getUserByEmail(email) {
 }
 
 async function createUser(email, password, username, imgUrl) {
-  const SALT = process.env.SALT;
+  const SALT = Number(process.env.SALT);
 
   const passwordHash = bcrypt.hashSync(password, SALT);
+
   return db.query(
-    `INSERT INTO users (email, password, username, "imgUrl") VALUES($1, $2, $3, $4)`[
-      (email, passwordHash, username, imgUrl)
-    ]
+    `INSERT INTO users (email, password, username, "imgUrl") VALUES($1, $2, $3, $4)`,
+    [email, passwordHash, username, imgUrl]
   );
 }
 
@@ -20,3 +20,5 @@ const userRepository = {
   getUserByEmail,
   createUser,
 };
+
+export default userRepository;
