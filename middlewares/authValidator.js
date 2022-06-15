@@ -5,11 +5,11 @@ export async function validateToken(req, res, next) {
   const authorization = req.headers.authorization;
   const token = authorization?.replace("Bearer ", "");
   if (!token) {
-    return res.send(401).status("No token");
+    return res.status(401).send("No token");
   }
 
   try {
-    const { sessionId } = jwt.verify(token);
+    const { sessionId } = jwt.verify(token, process.env.JWT_SECRET);
 
     const user = await userRepository.getUserBySessionId(sessionId);
     if (!user.rowCount) return res.status(401).send("user not found");
