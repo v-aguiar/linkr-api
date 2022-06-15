@@ -1,12 +1,14 @@
-﻿import { Pool } from "pg";
+﻿import pg from "pg";
 import dotenv from "dotenv";
 
 dotenv.config();
 
+const { Pool } = pg;
+
 const connectionString = process.env.DATABASE_URL;
 
 const configDatabase = {
-  connectionString: process.env.DATABASE_URL,
+  connectionString,
 };
 
 if (process.env.MODE === "PROD") {
