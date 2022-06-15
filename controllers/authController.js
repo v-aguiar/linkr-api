@@ -20,7 +20,7 @@ export async function login(req, res) {
     const config = { expiresIn: 60 * 60 * 12 };
 
     const token = jwt.sign(data, process.env.JWT_SECRET, config);
-    return res.status(200).send(token);
+    return res.status(200).send({ token, img: user.rows[0].imgUrl });
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
