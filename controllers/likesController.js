@@ -13,3 +13,17 @@ export async function fetchLikes(req, res) {
     res.status(500).send("⚠ Couldn't fetch likes! ");
   }
 }
+
+export async function fetchWhoLiked(req, res) {
+  const { postId } = req.params;
+  const { userId } = req.params;
+
+  try {
+    const whoLiked = await likesRepository.fetchWhoElseLiked(postId, userId);
+
+    res.status(200).send(whoLiked.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("⚠ Couldn't fetch who liked! ");
+  }
+}

@@ -10,9 +10,24 @@ const likesRepository = {
         : `SELECT COUNT(*) AS likes
         FROM likes
         WHERE "postId" = $1 AND "userId" = $2`;
-    const value = userId === "" ? [postId] : [postId, userId];
+    const values = userId === "" ? [postId] : [postId, userId];
 
-    return db.query(query, value);
+    return db.query(query, values);
+  },
+
+  fetchWhoElseLiked: async (postId, userId) => {
+    const query = `SELECT u.username
+      FROM likes l
+      JOIN users u 
+        ON u.id = l."userId"
+      JOIN posts p 
+        ON p.id = l."postId"
+      WHERE p.id = $1 AND l."userId" != $2
+      ORDER BY l."createdAt" DESC
+      LIMIT 2;`;
+    const values = [postId, userId];
+
+    return db.query(query, values);
   },
 };
 
