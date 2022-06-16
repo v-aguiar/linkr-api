@@ -1,4 +1,4 @@
-﻿import likesRepository from "../repositories/likesRepository";
+﻿import likesRepository from "../repositories/likesRepository.js";
 
 export async function fetchLikes(req, res) {
   const postId = req.params.postId;
@@ -7,9 +7,9 @@ export async function fetchLikes(req, res) {
   try {
     const likes = await likesRepository.fetchLikes(postId, userId);
 
-    res.status(200).send({ likesData: likes.rows });
+    res.status(200).send(likes.rows[0]);
   } catch (err) {
     console.error(err);
-    res.status(500).send("⚠ Couldn't fetch likes! ", err);
+    res.status(500).send("⚠ Couldn't fetch likes! ");
   }
 }
