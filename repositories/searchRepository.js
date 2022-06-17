@@ -9,6 +9,15 @@ const searchRepository = {
 
     return db.query(query, values);
   },
+
+  fetchUserById: async (userId) => {
+    const query = `SELECT *
+      FROM users
+      WHERE id = $1`;
+    const values = [userId];
+
+    return db.query(query, values);
+  },
 };
 
 export default searchRepository;
