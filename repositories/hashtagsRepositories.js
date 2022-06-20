@@ -1,4 +1,4 @@
-import db from "../config/db";
+import db from "../config/db.js";
 
 export async function getHashtagsRepository() {
     const hashtags = await db.query(`
