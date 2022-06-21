@@ -11,6 +11,23 @@ const friendsRepository = {
 
     return db.query(query, values);
   },
+
+  async follow(userId, friendId) {
+    const query = `INSERT INTO friends
+        ("userId", "friendId")
+      VALUES ($1, $2)`;
+    const values = [userId, friendId];
+
+    return db.query(query, values);
+  },
+
+  async unfollow(userId, friendId) {
+    const query = `DELETE FROM friends
+      WHERE "userId" = $1 AND "friendId" = $2`;
+    const values = [userId, friendId];
+
+    return db.query(query, values);
+  },
 };
 
 export default friendsRepository;
