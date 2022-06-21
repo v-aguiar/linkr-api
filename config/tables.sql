@@ -37,3 +37,18 @@ CREATE TABLE "hashtagsPosts" (
 	"hashtagId" integer NOT NULL REFERENCES hashtags(id),
 	"postId" integer NOT NULL REFERENCES posts(id)
 );
+
+CREATE TABLE "friends" (
+    id serial PRIMARY KEY,
+    "userId" integer NOT NULL,
+    "friendId" integer NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL DEFAULT now(),
+    CONSTRAINT friends_userid_fkey FOREIGN KEY ("userId")
+        REFERENCES users (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT friends_friendid_fkey FOREIGN KEY ("friendId")
+        REFERENCES users (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);

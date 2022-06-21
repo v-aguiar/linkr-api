@@ -1,5 +1,6 @@
 ﻿import db from "../config/db.js";
 
+// TODO - Reajustar quais informações serão retornadas no SELECT.
 const searchRepository = {
   fetchUser: async (username) => {
     const query = `SELECT *
