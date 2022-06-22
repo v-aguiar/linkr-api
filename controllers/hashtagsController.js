@@ -9,7 +9,7 @@ export async function getHashtags(req, res) {
         const hashtags = hashtagsRows.map((obj) => {
             return obj.name;
         });
-
+ 
         res.status(200).send(hashtags);
     } catch (error) {
         console.log("Error in getHashtags", error);
