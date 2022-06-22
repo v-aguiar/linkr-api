@@ -1,7 +1,7 @@
 import postsRepository from "../repositories/postRepository.js"
 
 
-export async function post(req, res){
+export async function createPost(req, res){
     const { userId, url, text } = req.body
 
     try{
