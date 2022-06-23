@@ -18,7 +18,7 @@ async function createUser(email, password, username, imgUrl) {
 
 async function getUserBySessionId(sessionId) {
   return db.query(
-    `SELECT * FROM users u JOIN sessions s ON u.id=s."userId" WHERE s.id=$1`,
+    `SELECT u.* FROM users u JOIN sessions s ON u.id=s."userId" WHERE s.id=$1`,
     [sessionId]
   );
 }
