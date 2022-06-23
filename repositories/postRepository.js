@@ -11,7 +11,8 @@ async function createPosts(userId, url, text, metadata) {
 
 async function showPosts() {
     return db.query(
-        `SELECT p.id, u.username, p.text, p.url, u."imgUrl" FROM posts p 
+        `SELECT p.id, u.username, p.text, p.url, p.title, p.description, p."imgUrl" as "postImg", u."imgUrl" as "userImg"
+        FROM posts p 
         JOIN users u 
         ON u.id = p."userId" 
         ORDER BY p."createdAt" desc LIMIT 20`

@@ -6,6 +6,7 @@ import searchRouter from "./searchRouter.js";
 import timelineRouter from "./timelineRoute.js";
 import hashtagsRouter from "./hashtagsRoute.js";
 import friendsRouter from "./friendsRouter.js";
+import userRouter from "./userRouter.js";
 
 const router = Router();
 
@@ -16,5 +17,6 @@ router.use(searchRouter);
 router.use(timelineRouter);
 router.use(hashtagsRouter);
 router.use(friendsRouter);
+router.use(userRouter);
 
 export default router;
