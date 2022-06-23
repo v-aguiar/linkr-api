@@ -2,10 +2,11 @@ import postsRepository from "../repositories/postRepository.js"
 
 
 export async function createPost(req, res){
-    const { userId, url, text } = req.body
+    const {user} = res.locals
+    const {url, text } = req.body
 
     try{
-        await postsRepository.createPosts(userId, url, text)
+        await postsRepository.createPosts(user.id, url, text)
         return res.sendStatus(201)
     } catch (error) {
         console.log(error);
@@ -13,7 +14,7 @@ export async function createPost(req, res){
     }
 }
 
-export async function timeline(req, res){
+export async function getPosts(req, res){
 
     try{
         const posts = await postsRepository.showPosts()

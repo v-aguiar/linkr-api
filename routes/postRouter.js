@@ -1,5 +1,6 @@
 import Router from "express";
-import { createPost, timeline } from "../controllers/postController.js";
+import { createPost, getPosts } from "../controllers/postController.js";
+import { validateToken } from "../middlewares/authValidator.js";
 import { validateSchema } from "../middlewares/schemaValidator.js";
 import postSchema from "../schemas/postsSchema.js";
 
@@ -7,7 +8,7 @@ import postSchema from "../schemas/postsSchema.js";
 
 const postsRouter = Router();
 
-postsRouter.post("/post", validateSchema(postSchema), createPost)
-postsRouter.get("/timeline", timeline)
+postsRouter.post("/posts", validateSchema(postSchema), validateToken, createPost)
+postsRouter.get("/posts", getPosts)
 
 export default postsRouter
