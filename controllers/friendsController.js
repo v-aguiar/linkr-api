@@ -2,6 +2,7 @@
 
 export async function fetchFriends(req, res) {
   const { userId } = req.params;
+  const { user } = res.locals;
 
   try {
     const friends = await friendsRepository.fetchFriends(userId);
@@ -9,6 +10,7 @@ export async function fetchFriends(req, res) {
     const friendsResponse = {
       friends: friends.rows,
       count: friends.rows.length,
+      userId: user.userId,
     };
 
     res.status(200).send(friendsResponse);

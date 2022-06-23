@@ -3,7 +3,7 @@
 // TODO - Reajustar quais informações serão retornadas no SELECT.
 const searchRepository = {
   fetchUser: async (username) => {
-    const query = `SELECT *
+    const query = `SELECT users."id", users."imgUrl", users."username"
       FROM users
       WHERE username ILIKE $1||'%'`;
     const values = [username];
@@ -12,7 +12,7 @@ const searchRepository = {
   },
 
   fetchUserById: async (userId) => {
-    const query = `SELECT *
+    const query = `SELECT users."id", users."imgUrl", users."username"
       FROM users
       WHERE id = $1`;
     const values = [userId];

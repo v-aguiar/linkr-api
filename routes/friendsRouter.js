@@ -16,6 +16,7 @@ const friendsRouter = Router();
 
 friendsRouter.get(
   "/friends/:userId",
+  validateToken,
   validateSchemaParams(friendsSchema.userId),
   fetchFriends
 );
@@ -25,7 +26,7 @@ friendsRouter.post(
   validateSchema(friendsSchema.follow),
   follow
 );
-friendsRouter.post(
+friendsRouter.delete(
   "/friends/unfollow",
   validateToken,
   validateSchema(friendsSchema.follow),
