@@ -24,6 +24,7 @@
     "jsonwebtoken": "^8.5.1",
     "nanoid": "^4.0.0",
     "pg": "^8.7.3",
+    "url-exist": "^3.0.0",
     "url-metadata": "^2.5.0"
   },
   "devDependencies": {
