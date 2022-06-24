@@ -23,3 +23,17 @@ export async function getPosts(req, res) {
         return res.sendStatus(500);
     }
 }
+
+export async function repost(req, res) {
+    const { userId } = res.locals.tokenData;
+    const {postId} = req.body;
+
+    try {
+        await sendRepost(userId, postId);
+        res.sendStatus(201);
+    } catch (error) {
+        console.log("Error sending repost", error);
+        res.sendStatus(500);
+        return;
+    }
+}

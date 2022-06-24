@@ -52,3 +52,28 @@ CREATE TABLE "friends" (
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 );
+
+CREATE TABLE "sharedPosts" (
+	"id" serial NOT NULL PRIMARY KEY,
+	"userId" integer NOT NULL REFERENCES users(id),
+	"postId" integer NOT NULL REFERENCES posts(id),
+	"createdAt" timestamp NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE "followers" (
+	"id" serial NOT NULL PRIMARY KEY,
+	"followerId" INTEGER NOT NULL REFERENCES "users"("id"),
+	"followedId" INTEGER NOT NULL REFERENCES "users"("id")
+);
+
+CREATE TABLE "postStatus" (
+	"id" INTEGER PRIMARY KEY,
+	"name" TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE "reposts"(
+	"id" serial NOT NULL PRIMARY KEY,
+	"postId" integer NOT NULL REFERENCES posts(id),
+	"userId" integer NOT NULL REFERENCES users(id),
+	"createdAt" timestamp NOT NULL DEFAULT NOW()
+);
