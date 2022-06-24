@@ -2,6 +2,7 @@ import Router from "express";
 import {
     createPost,
     fetchFriendsPosts,
+    fetchUserPosts,
     getPosts,
 } from "../controllers/postController.js";
 import { validateToken } from "../middlewares/authValidator.js";
@@ -20,5 +21,6 @@ postsRouter.post(
 );
 postsRouter.get("/posts", validateToken, getPosts);
 postsRouter.get("/posts/friends/:userId", validateToken, fetchFriendsPosts);
+postsRouter.get("/posts/user/:userId", validateToken, fetchUserPosts);
 
 export default postsRouter;
