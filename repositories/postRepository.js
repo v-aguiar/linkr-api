@@ -21,9 +21,22 @@ async function showPosts() {
     );
 }
 
+async function fetchFriendsPosts(userId) {
+    const query = `SELECT  p.id, u.username, p.text, p.url, p.title, p.description, p."imgUrl" as "postImg", u."imgUrl" as "userImg"
+        FROM friends
+        JOIN posts p 
+            ON p."userId" = friends."friendId"
+        JOIN users u 
+            ON friends."userId" = u.id
+        WHERE u.id = $1`;
+    const values = [userId];
+    return db.query(query, values);
+}
+
 const postsRepository = {
     createPosts,
     showPosts,
+    fetchFriendsPosts,
 };
 
 export default postsRepository;

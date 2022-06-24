@@ -39,3 +39,16 @@ export async function getPosts(req, res) {
         return res.sendStatus(500);
     }
 }
+
+export async function fetchFriendsPosts(req, res) {
+    const { userId } = req.params;
+
+    try {
+        const friendsPosts = await postsRepository.fetchFriendsPosts(userId);
+
+        return res.send(friendsPosts.rows);
+    } catch (error) {
+        console.log("⚠ Error in fetchFriendsPosts ", error);
+        return res.status(500).send("⚠ Error in fetchFriendsPosts ");
+    }
+}
