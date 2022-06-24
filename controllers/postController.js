@@ -1,12 +1,28 @@
+import { postHashtags } from "../repositories/hashtagsRepositories.js";
 import postsRepository from "../repositories/postRepository.js";
+import getHashtags from "../utils/getHashtags.js";
 
 export async function createPost(req, res) {
     const { user } = res.locals;
     const { url, text } = req.body;
     const { metadata } = res.locals;
 
+    const hashtags = getHashtags(text);
+
     try {
-        await postsRepository.createPosts(user.id, url, text, metadata);
+        const postId = await postsRepository.createPosts(
+            user.id,
+            url,
+            text,
+            metadata
+        );
+
+        if (hashtags) {
+            hashtags.forEach((hashtag) => {
+                postHashtags(hashtag, postId);
+            });
+        }
+
         return res.sendStatus(201);
     } catch (error) {
         console.log(error);
