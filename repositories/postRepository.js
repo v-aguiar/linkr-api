@@ -3,10 +3,12 @@ import db from "../config/db.js";
 async function createPosts(userId, url, text, metadata) {
     const { image, title, description } = metadata;
 
-    return db.query(
-        `INSERT INTO posts ("userId", url, text, "imgUrl", title, description) VALUES($1, $2, $3, $4, $5, $6)`,
+    const postId = await db.query(
+        `INSERT INTO posts ("userId", url, text, "imgUrl", title, description) VALUES($1, $2, $3, $4, $5, $6) RETURNING id`,
         [userId, url, text, image, title, description]
     );
+
+    return postId.rows[0].id;
 }
 
 async function showPosts() {
