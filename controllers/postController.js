@@ -40,6 +40,7 @@ export async function getPosts(req, res) {
     }
 }
 
+// "/posts/friends/:userId"
 export async function fetchFriendsPosts(req, res) {
     const { userId } = req.params;
 
@@ -50,5 +51,19 @@ export async function fetchFriendsPosts(req, res) {
     } catch (error) {
         console.log("⚠ Error in fetchFriendsPosts ", error);
         return res.status(500).send("⚠ Error in fetchFriendsPosts ");
+    }
+}
+
+// "/posts/user/:userId"
+export async function fetchUserPosts(req, res) {
+    const { userId } = req.params;
+
+    try {
+        const userPosts = await postsRepository.fetchUserPosts(userId);
+
+        return res.send(userPosts.rows);
+    } catch (error) {
+        console.log("⚠ Error in fetchUserPosts ", error);
+        return res.status(500).send("⚠ Error in fetchUserPosts ");
     }
 }
